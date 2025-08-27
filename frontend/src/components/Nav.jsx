@@ -7,9 +7,14 @@ import { FaSearch } from "react-icons/fa";
 
 import { FaRegUserCircle } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
+import { BsCollection } from "react-icons/bs";
+import { MdContacts } from "react-icons/md";
+
 import { userDataContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { authDataContext } from "../context/authContext";
+import { MdHome } from "react-icons/md";
+
 import axios from "axios";
 
 function Nav() {
@@ -36,12 +41,14 @@ function Nav() {
 
   return (
     <div className="w-[100vw] h-[70px] bg-[#ecfafaec] z-10 fixed top-0 flex items-center justify-between px-[30px] shadow-md shadow-black">
-      <div className="w-[30%] flex items-center justify-start  gap-[10px]">
+
+      {/* logo */}
+      <div className="w-[20%] lg:w-[30%] flex items-center justify-start  gap-[10px]">
         <img className="w-[40px]" src={logo} alt="" />
         <h1 className="text-[25px] font-sans  ">OneCart</h1>
       </div>
 
-      <div className="w-[40%] hidden md:flex ">
+      <div className="w-[50%] lg:w-[40%] hidden md:flex ">
         <ul className="flex items-center justify-center gap-[19px] text-white ">
           <li className="text-[15px] hover:bg-slate-500 cursor-pointer bg-[#000000c9] py-[10px] px-[20px] rounded-2xl">
             HOME
@@ -89,7 +96,7 @@ function Nav() {
 
         <IoCartOutline className="hidden md:block  w-[38px] h-[38px] text-[#000000] cursor-pointer" />
 
-        <p className="hidden md:block absolute w-[18px] h-[18px] items-center flex justify-center bg-black px-[5px] py-[2px] text-white rounded-full text-[9px] top-[10px] right-[23px]">
+        <p className="hidden  md:block absolute w-[18px] h-[18px] items-center flex justify-center bg-black px-[5px] py-[2px] text-white rounded-full text-[9px] top-[10px] right-[23px]">
           10
         </p>
       </div>
@@ -144,15 +151,26 @@ function Nav() {
       )}
 
       {/*  footer */}
-{/* 
-      <div className="w-[100vw] h-[90px] flex items-center justify-between px-[]">
 
+      <div className="w-[100vw] h-[90px] text-[12px] flex items-center justify-between px-[20px] fixed bottom-0 left-0 bg-[#191818] md:hidden ">
+        <button className="text-[white] flex items-center justify-center flex-col gap-[2px]">
+          <MdHome className="w-[25px] h-[25px] text-white md:hidden " />
+          Home
+        </button>
 
-      </div> */}
-
-
-
-
+        <button className="text-[white] flex items-center justify-center flex-col gap-[2px]">
+          <BsCollection className="w-[25px] h-[25px] text-white md:hidden " />
+          Collection
+        </button>
+        <button className="text-[white] flex items-center justify-center flex-col gap-[2px]">
+          <MdContacts className="w-[25px] h-[25px] text-white md:hidden " />
+          Conact
+        </button>
+        <button className="text-[white] flex items-center justify-center flex-col gap-[2px]">
+          <IoCartOutline className="w-[25px] h-[25px] text-white md:hidden " />
+          Cart
+        </button>
+      </div>
     </div>
   );
 }
