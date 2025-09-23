@@ -7,20 +7,21 @@ export const userDataContext = createContext();
 function UserContext({ children }) {
   const { serverUrl } = useContext(authDataContext);
 
-  const [userData, setUserData] = useState(null);  
-  const [loading, setLoading] = useState(true); 
-
-
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const getCurrentUser = async () => {
     try {
-      const result = await axios.get(serverUrl+"/api/user/getcurrentuser", {
-        withCredentials: true, 
+      const result = await axios.get(serverUrl + "/api/user/getcurrentuser", {
+        withCredentials: true,
       });
       setUserData(result.data);
       console.log(result.data);
     } catch (error) {
-      console.log("GetCurrentUser Error:", error.response?.data || error.message);
+      console.log(
+        "GetCurrentUser Error:",
+        error.response?.data || error.message
+      );
       setUserData(null);
     } finally {
       setLoading(false);

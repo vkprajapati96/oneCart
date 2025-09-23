@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 
 import validator from "validator";
 import User from "../model/userModel.js";
-import { genToken } from "../config/token.js";
+import { genToken, genToken1 } from "../config/token.js";
 
 export const register = async (req, res) => {
   try {
@@ -133,7 +133,7 @@ export const googleLogin = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false, 
+      secure: false,
       sameSite: "strict",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
@@ -143,9 +143,37 @@ export const googleLogin = async (req, res) => {
       user,
     });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return res
       .status(500)
       .json({ message: "Google login error", error: error.message });
+  }
+};
+  // admin Loggin
+export const adminLogin = async (req, res) => {
+  try {
+    let { email, password } = req.body;
+
+    if (
+      email === process.env.ADMIN_EMAIL &&
+      password === process.env.ADMIN_PASSWORD
+    ) {
+      let token = await genToken1(email);
+
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: false, // production me true rakho
+        sameSite: "strict",
+        maxAge: 1 * 24 * 60 * 60 * 1000, // 7 days
+      });
+
+      return res.status(200).json(token );
+    }
+
+    return res.status(400).json({ message: "Invalid Credentials" });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: `Admin Login Error: ${error.message}` });
   }
 };

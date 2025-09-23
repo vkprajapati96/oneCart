@@ -1,0 +1,138 @@
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import logo from "../assets/logo.png";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
+import { authDataContext } from "../context/AuthContenxt";
+import axios from "axios";
+import { adminDataContnext } from "../context/AdminContext";
+
+function Login() {
+  const navigate = useNavigate();
+  const [show, seteShow] = useState(false);
+  const { getAdmin, adminData, setAdminData } = useContext(adminDataContnext);
+  // const { serverUrl } = useContext(authDataContext);
+  const { serverUrl } = useContext(authDataContext);
+  let [email, setEmail] = useState("");
+  let [password, setPassword] = useState("");
+  // const { getCurrentUser } = useContext(userDataContext);
+
+  const adminLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const result = await axios.post(
+        serverUrl + "/api/auth/adminlogin",
+        { email, password },
+        { withCredentials: true }
+      );
+      console.log(result.data);
+      getAdmin()
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  //   login with google
+  // const googleLogin = async () => {
+  //   try {
+  //     const response = await signInWithPopup(auth, provider);
+  //     let user = response.user;
+  //     let name = user.displayName;
+  //     let email = user.email;
+  //     const result = await axios.post(
+  //       serverUrl + "/api/auth/googlelogin",
+  //       { name, email },
+  //       { withCredentials: true }
+  //     );
+  //     console.log(result.data);
+  //     getCurrentUser();
+  //     navigate("/");
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  return (
+    <div className="w-[100vw] h-[100vh] bg-gradient-to-l from-[#141414] to-[#0c2025] text-[white] flex flex-col items-center justify-start">
+      {/* logo section */}
+      <div
+        className="w-[100%] h-[80px] flex items-center justify-start px-[30px] gap-[10px] cursor-pointer "
+        onClick={() => navigate("/")}
+      >
+        <img className="w-[40px]" src={logo} alt="" />
+        <h1 className="text-[22px] font-sans">OneCart</h1>
+      </div>
+
+      {/* register section */}
+      <div className="w-[100%] h-[100px] flex items-center justify-center flex-col gap-[10px] ">
+        <span className="text-[25px] font-semibold">Login Page</span>
+        <span className="text-[16px] ">
+          WelCome to OneCart, Apply to Admin Login
+        </span>
+      </div>
+
+      {/* form section */}
+
+      <div
+        onSubmit={adminLogin}
+        className="max-w-[600px] w-[90%] h-[400px] bg-[#00000025] border-[1px] border-[#96969635] backdrop-blur-2xl rounded-lg shadow-lg flex justify-center items-center"
+      >
+        <form className="w-[90%] h-[90%] flex flex-col items-center justify-start gap-[20px]">
+          {/* Google Button */}
+
+          {/* OR Line */}
+
+          {/* Input Field */}
+          <div className=" w-[90%] h-[400px] flex flex-col items-center justify-center gap-[15px]">
+            <input
+              type="text"
+              autoComplete="email"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              placeholder="Enter your email"
+              className="w-[90%] h-[45px] px-4 rounded-lg bg-[#1a1a1a50] text-white border border-[#96969635] focus:outline-none focus:border-purple-500"
+            />
+
+            <div className="relative w-[90%]">
+              <input
+                autoComplete="current-password"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                type={`${show ? "text" : "password"}`}
+                placeholder="password"
+                className="w-[100%] h-[45px] px-4 rounded-lg bg-[#1a1a1a50] text-white border border-[#96969635] focus:outline-none focus:border-purple-500"
+              />
+              <span
+                className="text-[22px] absolute top-[12px] right-[20px] cursor-pointer "
+                onClick={() => seteShow((prev) => !prev)}
+              >
+                {show ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
+
+            {/* Purple Button */}
+            <button
+              type="submit"
+              className="w-[90%] h-[45px] bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-semibold"
+            >
+              Login
+            </button>
+
+            <p className="flex gap-[10px]">
+              You haven't any account?
+              <span
+                onClick={() => navigate("/signup")}
+                className="text-purple-500 hover:text-purple-700 cursor-pointer"
+              >
+                create new account
+              </span>
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+export default Login;

@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors"
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoute.js";
+import productRoutes from "./routes/productRoutes.js";
 dotenv.config()
 
 let app = express();
@@ -12,7 +13,7 @@ let app = express();
 let port = process.env.PORT || 6000
 
 app.use(cors({
-  origin: "http://localhost:5173", // frontend URL
+  origin: ["http://localhost:5173","http://localhost:5174"], // frontend URL
   credentials: true, // allow cookies
 }));
 
@@ -27,6 +28,7 @@ app.use(cookieParser()
 
 app.use("/api/auth",authRoutes)
 app.use("/api/user",userRoutes)
+app.use("/api/product",productRoutes)
 
 
 app.listen(port,()=>{
