@@ -25,6 +25,7 @@ export const register = async (req, res) => {
     if (existingUser) {
       return res.status(400).json({ message: "Email already registered" });
     }
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // create new user
@@ -150,16 +151,16 @@ export const googleLogin = async (req, res) => {
   }
 };
   // admin Loggin
-export const adminLogin = async (req, res) => {
+  export const adminLogin = async (req, res) => {
   try {
-    let { email, password } = req.body;
+  let { email, password } = req.body;
 
     if (
-      email === process.env.ADMIN_EMAIL &&
-      password === process.env.ADMIN_PASSWORD
+      email === process.env.ADMIN_EMAIL &&  
+      password === process.env.ADMIN_PASSWORD 
     ) {
+      
       let token = await genToken1(email);
-
       res.cookie("token", token, {
         httpOnly: true,
         secure: false, // production me true rakho

@@ -16,6 +16,7 @@ function Hero({ heroData, heroCount, setHeroCount }) {
           className={`w-[14px] ${
             heroCount === 0 ? "fill-orange-400" : "fill-white"
           }`}
+        
           onClick={() => setHeroCount(0)}
         />
         <FaCircle

@@ -29,6 +29,7 @@ const productSchema = new mongoose.Schema({
   description: {
     type: String,
     required: true,
+  
   },
   
   price: {
@@ -41,21 +42,24 @@ const productSchema = new mongoose.Schema({
     required: true,
   
 },
+
 subcategory: {
     type: String,
     required: true,
-  
 },
+
 sizes: {
     type: Array,
     required: true,
   
 },
+
 date: {
     type: Number,
     required: true,
   
 },
+
 bestseller: {
     type: Boolean,
   

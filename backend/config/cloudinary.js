@@ -10,6 +10,7 @@ const uploadOnCloudinary = async(filePath) =>{
     });
 
     try {
+        
     if (!filePath) {
         return null
     }

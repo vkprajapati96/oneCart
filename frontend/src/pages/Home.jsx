@@ -31,8 +31,8 @@
 //     </div>
 //   );
 // }
-
 // export default Home;
+
 
 import { useEffect, useState } from "react";
 import Hero from "../components/Hero";
@@ -59,7 +59,7 @@ import Background from "../components/Background";
   return (
     <div>
 
-    <div className="w-screen h-screen bg-gradient-to-l from-[#141414] to-[#0c2025] flex lg:h-[100vh] md:h-[50vh] sm:h-[30vh] ">
+    <div className="w-screen h-screen mt-18  bg-gradient-to-l from-[#141414] to-[#0c2025] flex lg:h-[100vh] md:h-[50vh] sm:h-[30vh] ">
       {/* Left side text */}
       <div className="w-1/2">
         <Hero
@@ -76,6 +76,7 @@ import Background from "../components/Background";
     </div>
     </div>
   );
+
 }
 
 export default Home
